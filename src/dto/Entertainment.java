@@ -4,6 +4,14 @@ public class Entertainment {
     private int e_id;
     private String name;
 
+    @Override
+    public String toString() {
+        return "Entertainment{" +
+                "e_id=" + e_id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public int getE_id() {
         return e_id;
     }

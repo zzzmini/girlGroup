@@ -34,6 +34,8 @@ public class EnterService {
                 entertainment.setName(rs.getString("name"));
                 entertainments.add(entertainment);
             }
+            psmt.close();
+            rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -42,6 +44,23 @@ public class EnterService {
 
     public List<GirlGroup> getGroups(int enterId) {
         System.out.println("[EnterService.getGroups]");
-        return null;
+        try {
+            sql = "SELECT g_id, name, debut FROM girl_group WHERE enter_id = ?";
+            psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, enterId);
+            rs = psmt.executeQuery();
+
+            while (rs.next()) {
+                GirlGroup girlGroup = new GirlGroup();
+                girlGroup.setG_id(rs.getInt("g_id"));
+                girlGroup.setName(rs.getString("name"));
+                girlGroup.setDebut(rs.getDate("debut").toLocalDate());
+                groups.add(girlGroup);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return groups;
     }
 }
